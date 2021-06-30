@@ -1,0 +1,70 @@
+$date
+	Fri Jun 25 23:55:07 2021
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ms
+$end
+$scope module radix4approx_tb $end
+$var wire 16 ! p [15:0] $end
+$var reg 8 " x [7:0] $end
+$var reg 8 # y [7:0] $end
+$scope module uut $end
+$var wire 16 $ p [15:0] $end
+$var wire 8 % x [7:0] $end
+$var wire 8 & y [7:0] $end
+$var wire 9 ' xbar [8:0] $end
+$var reg 16 ( ANS [15:0] $end
+$var reg 1 ) mux $end
+$var integer 32 * i [31:0] $end
+$var integer 32 + j [31:0] $end
+$var integer 32 , m [31:0] $end
+$var integer 32 - t [31:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b1000 -
+b110 ,
+b11 +
+b100 *
+1)
+b1111110101001 (
+b110100010 '
+b1100111 &
+b1011110 %
+b1111110101001 $
+b1100111 #
+b1011110 "
+b1111110101001 !
+$end
+#200
+b1110010 '
+b1101101100001001 !
+b1101101100001001 $
+b1101101100001001 (
+b11 +
+1)
+b1000 -
+b100 *
+b1010011 #
+b1010011 &
+b10001110 "
+b10001110 %
+#400
+b110000011 '
+b11100101100100 !
+b11100101100100 $
+b11100101100100 (
+b11 +
+1)
+b1000 -
+b100 *
+b1110100 #
+b1110100 &
+b1111101 "
+b1111101 %
+#600
