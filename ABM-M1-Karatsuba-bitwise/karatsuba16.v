@@ -45,8 +45,8 @@ radix4approx APP1(.p(M2), .x(AL), .y(BL));
 adder8 ADD1(.s(S1), .a(AH), .b(AL));
 adder8 ADD2(.s(S2), .a(BH), .b(BL));
 
-assign c = $signed(S1);
-assign d = $signed(S2);
+assign c = (S1);
+assign d = (S2);
 
 radix4approx10bit APP2(.p(M3), .x(c), .y(d));
 
