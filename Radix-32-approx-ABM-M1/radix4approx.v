@@ -20,7 +20,7 @@ reg [N+N-1:0]   ANS;
 reg mux;
 
 integer i , j, t;
-integer  m = 24;        //number of bits to approximate
+integer  m = 16;        //number of bits to approximate
 
 assign x_new = {2'b0,x};
 

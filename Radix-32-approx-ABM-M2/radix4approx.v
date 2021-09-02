@@ -19,10 +19,10 @@ reg [N+N-1:0]   ACC     [K:0];
 reg [N+N-1:0]   ANS;
 reg mux;
 
-integer i , j, t;
+integer i , j, t,z;
 
-integer  m = 24;        //number of bits to approximate
-localparam d = 24;
+integer  m = 16;        //number of bits to approximate
+localparam d = 16;
 
 integer sum_check = 0;
 
@@ -48,8 +48,8 @@ begin
     //M2 approximation
     x_new = x_shift;
 
-    for(i=0; i<m; i++) begin
-        sum_check = sum_check + x_shift[i];
+    for(z=0; z<m; z=z+1) begin
+        sum_check = sum_check + x_shift[z];
     end
 
     if(sum_check > m/2) begin
@@ -59,8 +59,8 @@ begin
     else
         x_new[d-1] = {1'b0};
 
-    for(i = 0; i<m-1; i++) begin
-        x_new[i] = {1'b0};
+    for(z = 0; z<m-1; z=z+1) begin
+        x_new[z] = {1'b0};
     end
 
     //
