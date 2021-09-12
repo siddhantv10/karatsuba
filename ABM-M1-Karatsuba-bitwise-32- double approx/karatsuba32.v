@@ -39,7 +39,7 @@ assign BL = B[K-1:0];
 
 
 radix4acc ACC1(.p(M1), .x(AH), .y(BH));
-radix4approx APP1(.p(M2), .x(AL), .y(BL));
+radix4approx APP1(.p(M2), .x(AL), .y(BL));      //approx1
 
 
 adder8 ADD1(.s(S1), .a(AH), .b(AL));
@@ -48,7 +48,7 @@ adder8 ADD2(.s(S2), .a(BH), .b(BL));
 assign c = (S1);
 assign d = (S2);
 
-radix4approx18bit APP2(.p(M3), .x(c), .y(d));
+radix4approx18bit APP2(.p(M3), .x(c), .y(d));       //approx2
 
 
 always@(*)

@@ -1,6 +1,6 @@
 `timescale 10ms / 1ms
 
-module radix4approx(p,x,y);         //8 bit multiplier to give 16 bit product
+module radix4approx(p,x,y);         
 
 parameter N = 16;   //size of muliplicant and multiplier
 parameter K = N/2;  //
@@ -18,11 +18,14 @@ reg [N+1:0]       PP      [K:0]; //riyaj
 reg [N+N-1:0]   ACC     [K:0];
 reg [N+N-1:0]   ANS;
 reg mux;
+reg ord = 0;
 
-integer i , j, t;
-integer  m = 12;        //number of bits to approximate
+integer i , j, t, b;
+integer  m = 8;        //number of bits to approximate
+integer d = 8;
 
 assign x_new = {2'b0,x};
+
 
 always@(*)
 
@@ -93,7 +96,12 @@ begin
 
                 else 
                 begin
-                    PP[i][t] = (~x_new[t] & neg[i]) | (x_new[t] & ~neg[i] & ~zero[i]);
+                    for(b=0; b<d;b=b+1) begin                   //M3 appproximation
+                        ord = ord | x_new[b];
+                    end
+                    PP[i][t] = ord & ~zero[i];
+                    d = d-2;
+                    
                 end
             end
 

@@ -1,7 +1,7 @@
 `timescale 10ms/1ms
 `include "radix4acc.v"
 `include "radix4approx.v"
-`include "radix4approx18bit.v"
+`include "radix4acc18bit.v"
 `include "adder8.v"
 
 module karatsuba32(P,A,B);
@@ -48,7 +48,7 @@ adder8 ADD2(.s(S2), .a(BH), .b(BL));
 assign c = (S1);
 assign d = (S2);
 
-radix4approx18bit APP2(.p(M3), .x(c), .y(d));
+radix4acc18bit APP2(.p(M3), .x(c), .y(d));
 
 
 always@(*)

@@ -1,6 +1,6 @@
 `timescale 10ms / 1ms
 
-module radix4approx(p,x,y);         //8 bit multiplier to give 16 bit product
+module radix4approx(p,x,y);                 //M2
 
 parameter N = 16;   //size of muliplicant and multiplier
 parameter K = N/2;  //
@@ -13,20 +13,27 @@ reg   neg     [K:0];
 reg   two     [K:0];
 reg   zero     [K:0];
 
-wire [N+1:0] x_new;
+wire [N+1:0] x_shift;
 reg [N+1:0]       PP      [K:0]; //riyaj 
 reg [N+N-1:0]   ACC     [K:0];
 reg [N+N-1:0]   ANS;
 reg mux;
 
-integer i , j, t;
-integer  m = 12;        //number of bits to approximate
+integer i , j, t,z;
 
-assign x_new = {2'b0,x};
+integer  m = 8;        //number of bits to approximate
+localparam d = 8;
+
+integer sum_check = 0;
+
+assign x_shift = {2'b0,x};
+
+reg [N+1:0] x_new = 0;
+
 
 always@(*)
-
 begin
+
     bits[0] = {y[1],y[0],1'b0};             //setting last bit -1 as 0
 
     for(i=1; i<K+1; i=i+1) begin
@@ -38,6 +45,25 @@ begin
             
         end
 
+    //M2 approximation
+    x_new = x_shift;
+
+    for(z=0; z<m; z=z+1) begin
+        sum_check = sum_check + x_shift[z];
+    end
+
+    if(sum_check > m/2) begin
+        x_new[d-1] = {1'b1};
+    end
+
+    else
+        x_new[d-1] = {1'b0};
+
+    for(z = 0; z<m-1; z=z+1) begin
+        x_new[z] = {1'b0};
+    end
+
+    //
 
     for(i=0; i<K+1; i=i+1)
         begin                               //approximated 2A as A introduced error
