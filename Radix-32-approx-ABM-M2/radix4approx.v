@@ -21,8 +21,8 @@ reg mux;
 
 integer i , j, t,z;
 
-integer  m = 16;        //number of bits to approximate
-localparam d = 16;
+integer  m = 32;        //number of bits to approximate
+localparam d = 32;
 
 integer sum_check = 0;
 

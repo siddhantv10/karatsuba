@@ -14,9 +14,106 @@ karatsuba32 uut(P,A,B);
 initial begin
     $dumpfile("karatsuba32.vcd");
     $dumpvars(0, karatsuba32_tb);
-    out = $fopen("karatsuba_output.csv");
+    out = $fopen("results16.csv");
+  
+/*    
+        A = 58;
+        B = 84607;
+        #1;
+        $fwrite(out, "%d, %d, %d\n", A,B,P);
+        #4;
+
+        A = 73066;
+        B = 615406;
+        #1;
+        $fwrite(out, "%d, %d, %d\n", A,B,P);
+        #4;
+
+        A = 10;
+        B = 96224;
+        #1;
+        $fwrite(out, "%d, %d, %d\n", A,B,P);
+        #4;
+
+        A = 12;
+        B = 94209;
+        #1;
+        $fwrite(out, "%d, %d, %d\n", A,B,P);
+        #4;
+
+        A = 20;
+        B = 95679;
+        #1;
+        $fwrite(out, "%d, %d, %d\n", A,B,P);
+        #4;
+    */
+
     
-    for(i=0; i<500; i=i+1)
+    for(i=0; i<100; i=i+1)                       //10 test cases A and B: 1-100 
+    begin
+        A = $urandom(seed) %200 + 65536;
+        B = $urandom(seed) %200;
+        #1;
+        $fwrite(out, "%d, %d, %d\n", A,B,P);
+        #4;
+    end
+
+    for(i=0; i<100; i=i+1)                       //10 test cases A: 1-100 B: till 2^15
+    begin
+        A = $urandom(seed) %200;
+        B = $urandom(seed) %32768 + 65536;
+        #1;
+        $fwrite(out, "%d, %d, %d\n", A,B,P);
+        #4;
+    end
+
+    for(i=0; i<100; i=i+1)                       //10 test cases B: 1-100 A: till 2^32
+    begin
+        A = $urandom(seed) %4294967295;
+        B = $urandom(seed) %200 + 65535;
+        #1;
+        $fwrite(out, "%d, %d, %d\n", A,B,P);
+        #4;
+    end
+
+    
+    for(i=0; i<200; i=i+1)                       //50 cases : till 1024 A: 2^10 B: 2^20
+    begin
+        A = $urandom(seed) %1024;
+        B = $urandom(seed) %1048576;
+        #1;
+        $fwrite(out, "%d, %d, %d\n", A,B,P);
+        #4;
+    end
+
+    for(i=0; i<500; i=i+1)                       //500 cases : till 32768 which is 2^15
+    begin
+        A = $urandom(seed) %65536 + 65536;
+        B = $urandom(seed) %32768;
+        #1;
+        $fwrite(out, "%d, %d, %d\n", A,B,P);
+        #4;
+    end
+
+    for(i=0; i<500; i=i+1)                       //500 cases : till 2^20
+    begin
+        A = $urandom(seed) %1048576;
+        B = $urandom(seed) %1048576;
+        #1;
+        $fwrite(out, "%d, %d, %d\n", A,B,P);
+        #4;
+    end
+
+    for(i=0; i<500; i=i+1)                       //50 cases : till 1024 A: 2^32 B: 2^20
+    begin
+        A = $urandom(seed) %4294967295;
+        B = $urandom(seed) %1048576;
+        #1;
+        $fwrite(out, "%d, %d, %d\n", A,B,P);
+        #4;
+    end
+
+    for(i=0; i<500; i=i+1)                          //50 cases till 2^32
     begin
         A = $urandom(seed) %4294967295;
         B = $urandom(seed) %4294967295;
@@ -25,10 +122,8 @@ initial begin
         #4;
     end
     
+    
     $finish;
 end
-
-
-
 
 endmodule

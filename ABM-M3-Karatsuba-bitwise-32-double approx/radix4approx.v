@@ -20,7 +20,7 @@ reg [N+N-1:0]   ANS;
 reg mux;
 reg ord = 0;
 
-integer i , j, t, b;
+integer i , j, t=0, b;
 integer  m = 8;        //number of bits to approximate
 integer d = 8;
 
@@ -103,6 +103,7 @@ begin
                     d = d-2;
                     
                 end
+
             end
 
             PP[i][0] = PP[i][0] | neg[i];

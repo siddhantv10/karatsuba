@@ -20,24 +20,47 @@ reg [N+N-1:0]   ANS;
 reg mux;
 
 integer i , j, t;
-integer  m = 8;        //number of bits to approximate
+integer  m = 16;        //number of bits to approximate
 
 assign x_new = {2'b0,x};
 
 always@(*)
 
 begin
+    //$display("---Middle mult------");
+    
+    //$display("X= %b",x);
+    //$display("X New= %b",x_new);
+    //$display("Y= %b",y);
+    
+    //$display("------");
+    
     bits[0] = {y[1],y[0],1'b0};             //setting last bit -1 as 0
-
+    /*$display("Bits(0)= %b",bits[0]);
+    $display("------");
+    */
     for(i=1; i<K+1; i=i+1) begin
             if(i == K)
                 bits[i] = {2'b0,y[2*i-1]};
             else
                 bits[i] = {y[2*i+1], y[2*i], y[2*i-1]};
             //$display("%b", bits[i]);
+
+            //$display("Bits(%d)= %b",i,bits[i]);
+            //$display("------");
             
         end
 
+    //$display("Bits= %b",bits);    
+    /*$display("BH= %b", BH);    
+    $display("BL= %b",BL);    
+    $display("M1= %b",M1);    
+    $display("M2= %b",M2);    
+    $display("S1= %b",S1);
+    $display("S2= %b",S2);    
+    $display("M3= %b",M3);    
+    $display("---------");
+    */
 
     for(i=0; i<K+1; i=i+1)
         begin                               //approximated 2A as A introduced error
@@ -95,27 +118,46 @@ begin
                 begin
                     PP[i][t] = (~x_new[t] & neg[i]) | (x_new[t] & ~neg[i] & ~zero[i]);
                 end
+
+                
             end
 
-            PP[i][0] = PP[i][0] | neg[i];
+            //$display("PP before (%d)= %b",i,PP[i]);
+            //$display("------");
+
+
+            //add neg[i]    
+            PP[i] = PP[i] + neg[i];
+
+            //$display("middle mult PP after (%d)= %b",i,PP[i]);
+            //$display("------");
 
             ACC[i] = $signed(PP[i]);        //sign extension
             
             for(j=0; j<i; j=j+1)
                 ACC[i] = {ACC[i],2'b00};        //shifting
 
-        
+            //$display("ACC(%d)= %b",i,ACC[i]);
+            //$display("------");
         end
 
     ANS = ACC[0];
+    //$display("ANS(0)= %b",ANS[0]);
+    //$display("------");
 
     for(i=1; i<K+1; i=i+1)
+    begin
         ANS = ANS+ACC[i];
+        //$display("ANS(%d)= %b",i,ANS[i]);
+        //$display("------");
+    end
+       
         
 end
 
 
 assign p = ANS;
+
 
 endmodule
     

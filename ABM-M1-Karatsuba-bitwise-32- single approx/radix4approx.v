@@ -20,7 +20,7 @@ reg [N+N-1:0]   ANS;
 reg mux;
 
 integer i , j, t;
-integer  m = 8;        //number of bits to approximate
+integer  m = 32;        //number of bits to approximate
 
 assign x_new = {2'b0,x};
 
@@ -97,7 +97,7 @@ begin
                 end
             end
 
-            PP[i][0] = PP[i][0] | neg[i];
+            PP[i] = PP[i] + neg[i];
 
             ACC[i] = $signed(PP[i]);        //sign extension
             

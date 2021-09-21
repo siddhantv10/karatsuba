@@ -51,21 +51,43 @@ assign d = (S2);
 radix4approx18bit APP2(.p(M3), .x(c), .y(d));       //approx2
 
 
-always@(*)
+
+always@(*)                  //, AL, BH, BL, M1, M2, S1, S2, M3
 begin
-    
-    M4 = $signed(M1);
-    M5 = $signed(M2);
-    
-    M6 = M3 - M4 - M5;
+    /*$display("AH= %b",AH);
+    $display("AL= %b",AL);    
+    $display("BH= %b", BH);    
+    $display("BL= %b",BL);    
+    $display("M1= %b",M1);    
+    $display("M2= %b",M2);    
+    $display("S1= %b",S1);
+    $display("S2= %b",S2);    
+    $display("M3= %b",M3);    
+    $display("---------");
+    $display("---------");
+    $display("---------");
+    $display("---------");
+    */
 
-    ACC[0] = $signed(M6);
+    M4 = (M1);
+    M5 = (M2);
+    
+    if(M3 > (M4+M5))
+        M6 = M3 - M4 - M5;
+    else
+        M6 = (M4+M5) - M3;
+
+
+    ACC[0] = (M6);
     ACC[0] = {ACC[0], {16{1'b0}}};
+    //$display("ACC[0]= %d",ACC[0]);    
 
-    ACC[1] = $signed(M2);
+    ACC[1] = (M2);
+    //$display("ACC[1]= %d",ACC[1]);    
     
-    ACC[2] = $signed(M1);
+    ACC[2] = (M1);
     ACC[2] = {ACC[2], {32{1'b0}}};
+    //$display("ACC[2]= %d",ACC[2]);    
 
     ANS = ACC[0];
     for(i=1; i<3; i=i+1)

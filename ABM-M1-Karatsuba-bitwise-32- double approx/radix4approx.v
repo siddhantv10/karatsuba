@@ -20,13 +20,24 @@ reg [N+N-1:0]   ANS;
 reg mux;
 
 integer i , j, t;
-integer  m = 8;        //number of bits to approximate
+integer  m = 16;        //number of bits to approximate
 
 assign x_new = {2'b0,x};
 
 always@(*)
 
 begin
+    /*
+    $display("---LSB mult------");
+    
+    $display("X= %b",x);
+    $display("X New= %b",x_new);
+    $display("Y= %b",y);
+    
+    $display("------");
+    
+    */
+
     bits[0] = {y[1],y[0],1'b0};             //setting last bit -1 as 0
 
     for(i=1; i<K+1; i=i+1) begin
@@ -97,7 +108,10 @@ begin
                 end
             end
 
-            PP[i][0] = PP[i][0] | neg[i];
+            PP[i] = PP[i] + neg[i];
+            //$display("LSB mult PP after (%d)= %b",i,PP[i]);
+            //$display("------");
+
 
             ACC[i] = $signed(PP[i]);        //sign extension
             

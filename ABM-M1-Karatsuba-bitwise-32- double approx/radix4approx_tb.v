@@ -22,8 +22,6 @@ initial begin
         begin
         x = $urandom(seed) %65535;
         y = $urandom(seed) %65535;
-
-
         #1;
         $fwrite(out, "%d, %d, %d\n", x,y,p);
         #4;
